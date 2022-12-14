@@ -15,7 +15,7 @@ public class StoryFile {
 	public void setRooms(Map<String, Room> rooms) { this.rooms = rooms; }
 	public Map<String, Room> getRooms() { return this.rooms; }
 	public void addRoom(Room room) {
-		rooms.put(room.getName(), room);
+		rooms.put(room.getId(), room);
 	}
 	public Optional<Room> getRoom(String direction) {
 		if (rooms.containsKey(direction))
