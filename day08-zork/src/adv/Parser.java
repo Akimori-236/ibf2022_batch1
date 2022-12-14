@@ -16,7 +16,7 @@ public class Parser {
 
 	public StoryFile parse() throws IOException {
 
-		FileReader fr = new FileReader(filename);
+		FileReader fr = new FileReader(this.filename);
 		BufferedReader br = new BufferedReader(fr);
 		String line;
 
@@ -25,8 +25,11 @@ public class Parser {
 
 		while (null != (line = br.readLine())) {
 			line = line.trim();
-			if (line.length() <= 0)
+			if (line.length() <= 0) {
+				storyFile.addRoom(currRoom);
+				// System.out.println(storyFile.getRooms().keySet());
 				continue;
+			}
 
 			String[] terms = line.split(":");
 
@@ -45,7 +48,7 @@ public class Parser {
 
 				case ROOM:
 					currRoom = parseRoom(terms[1]);
-					storyFile.addRoom(currRoom);
+					// storyFile.addRoom(currRoom);
 					break;
 
 				case START:
@@ -64,7 +67,7 @@ public class Parser {
 	}
 
 	private void parseDescription(Room room, String description) {
-		String converted = description.replaceAll(BREAK, "\n");
+		String converted = description.replaceAll(BREAK, "\n").trim();
 		room.setDescription(converted);
 	}
 
@@ -74,7 +77,7 @@ public class Parser {
 	}
 
 	private void parseName(Room room, String name) {
-		room.setName(name);
+		room.setName(name.trim());
 	}
 
 	private Room parseRoom(String id) {
